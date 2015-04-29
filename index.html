@@ -32,20 +32,24 @@
           <h5>Filtered {{ filtered.length }} of {{ totalItems}} total customers</h5>
       </div>
   </div>
+          <h2>Die nächsten Patienten</h2>
   <br/>
   <div class="row">
       <div class="col-md-12" ng-show="filteredItems > 0">
           <table class="table table-striped table-bordered">
               <thead>
-              <th>PID&nbsp;<a ng-click="sort_by('idA_PATIENT_BASIS');"><i class="glyphicon glyphicon-sort"></i></a></th>
-              <th>Name&nbsp;<a ng-click="sort_by('PAT_NAME');"><i class="glyphicon glyphicon-sort"></i></a></th>
-              <th>Vorname&nbsp;<a ng-click="sort_by('PAT_VORNAME');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Ticketnr.&nbsp;<a ng-click="sort_by('UNTERS_NAME');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Untersuchung&nbsp;<a ng-click="sort_by('ARBEITSPLATZ');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Gerät&nbsp;<a ng-click="sort_by('BEGINN');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Termin&nbsp;<a ng-click="sort_by('BEGINN');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Ankunft&nbsp;<a ng-click="sort_by('BEGINN');"><i class="glyphicon glyphicon-sort"></i></a></th>
+              <th>Wartezeit&nbsp;<a ng-click="sort_by('BEGINN');"><i class="glyphicon glyphicon-sort"></i></a></th>
               </thead>
               <tbody>
               <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-                  <td>{{data.idA_PATIENT_BASIS}}</td>
-                  <td>{{data.PAT_NAME}}</td>
-                  <td>{{data.PAT_VORNAME}}</td>
+                  <td>{{data.UNTERS_NAME}}</td>
+                  <td>{{data.ARBEITSPLATZ}}</td>
+                  <td>{{data.BEGINN}}</td>
               </tr>
               </tbody>
           </table>

@@ -10,7 +10,7 @@ app.filter('startFrom', function () {
     }
 });
 app.controller('patientsCtrl', function ($scope, $http, $timeout) {
-    $http.get('controller/PatientController.php').success(function (data) {
+    $http.get('controller/PatientController.php?construct=patients').success(function (data) {
         $scope.list = data;
         $scope.currentPage = 1;
         $scope.entryLimit = 5;

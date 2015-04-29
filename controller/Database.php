@@ -19,27 +19,9 @@ class Database implements DataSource
         $this->connection = new DBConnection("mysql");
     }
 
-/*    public function getPatients()
-    {
-        $sql = "SELECT * FROM a_patient_basis";
-
-        $result = $this->connection->execute_statement($sql);
-
-        $patients = array();
-
-        foreach ($result as $row) {
-            $patient = new Patient($row['idA_PATIENT_BASIS'], $row['PAT_NAME']);
-            $patients[] = $patient;
-        }
-
-        return $patients;
-
-    }*/
-
     public function getData()
     {
-        $sql = "SELECT p.idA_PATIENT_BASIS FROM a_patient_basis p";
-
+        $sql = "SELECT b.UNTERS_NAME, b.ARBEITSPLATZ, b.UNTERS_BEGINN, p.PAT_VORNAME, p.PAT_NAME, p.PAT_GEBURTSDATUM FROM a_untbeh_ueb b LEFT OUTER JOIN a_patient_basis p ON b.PATIENT_SCHLUESSEL=p.PATIENT_SCHLUESSEL WHERE b.UNTERS_STATUS = 't'";
         $result = $this->connection->execute_statement($sql);
 
         $patients = array();
