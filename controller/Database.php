@@ -21,15 +21,13 @@ class Database implements DataSource
 
     public function getData()
     {
-        $sql = "SELECT b.UNTERS_NAME, b.ARBEITSPLATZ, b.UNTERS_BEGINN, p.PAT_VORNAME, p.PAT_NAME, p.PAT_GEBURTSDATUM FROM a_untbeh_ueb b LEFT OUTER JOIN a_patient_basis p ON b.PATIENT_SCHLUESSEL=p.PATIENT_SCHLUESSEL WHERE b.UNTERS_STATUS = 't'";
+        $sql = "SELECT CONCAT(LEFT(PAT_VORNAME, 1), EXTRACT(DAY FROM PAT_GEBURTSDATUM), LEFT(PAT_NAME, 1), LEFT(idA_UNTBEH_UEB, 3)) as TICKET_NUMBER, b.UNTERS_NAME, b.ARBEITSPLATZ, DATE_FORMAT(b.UNTERS_BEGINN, '%d.%m.%y %h:%i') as UNTERS_BEGINN, DATE_FORMAT(IFNULL(b.UNTERS_BEGINN, a.ANMELDUNG_ANKUNFT), '%d.%m.%y %h:%i') as ANMELDUNG_ANKUNFT, TIMEDIFF(NOW(), b.UNTERS_BEGINN) as WAITING_TIME FROM a_untbeh_ueb b LEFT OUTER JOIN a_patient_basis p ON b.PATIENT_SCHLUESSEL=p.PATIENT_SCHLUESSEL INNER JOIN a_untbeh_ueb_alle a ON b.idA_UNTBEH_UEB=a.idA_UNTBEH_UEB_ALLE WHERE b.UNTERS_STATUS = 't'";
         $result = $this->connection->execute_statement($sql);
-
-        $patients = array();
-
-        foreach ($result as $row) {
-            $patients[] = $row;
-        }
-
-        return $patients;
+        return $result;
     }
+
+/*    public function checkStatus()
+    {
+
+    }*/
 }

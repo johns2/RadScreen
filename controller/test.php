@@ -5,7 +5,7 @@
  * Date: 20.04.2015
  * Time: 15:40
  */
-include("../datamodell/Patient.php");
+include("../datamodell/PatientCase.php");
 include("Database.php");
 //$new_patient = new Patient(12, hallo);
 //$new_patient->setId(10);
