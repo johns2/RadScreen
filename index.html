@@ -48,11 +48,11 @@
               <tbody>
               <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
                   <td>{{data.TICKET_NUMBER}}</td>
-                  <td>{{data.UNTERS_NAME}}</td>
+                  <td>{{data.UNTART_NAME}}</td>
                   <td>{{data.ARBEITSPLATZ}}</td>
                   <td>{{data.UNTERS_BEGINN}}</td>
                   <td>{{data.ANMELDUNG_ANKUNFT}}</td>
-                  <td>{{data.WAITING_TIME}}</td>
+                  <td>{{data.WARTEZEIT}}</td>
               </tr>
               </tbody>
           </table>
