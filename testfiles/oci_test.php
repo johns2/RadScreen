@@ -1,4 +1,6 @@
 <?php
+foreach(PDO::getAvailableDrivers() as $driver)
+    echo $driver, '\n';
 $conn = oci_connect('radscreen', 'Pa$$w0rd', 'localhost:1521');
 $query = 'select table_name from user_tables';
 $stid = oci_parse($conn, $query);

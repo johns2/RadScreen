@@ -16,7 +16,7 @@ class Database implements DataSource
 
     function __construct()
     {
-        $this->connection = new DBConnection("mysql");
+        $this->connection = new DBConnection("oci");
     }
 
     public function getData()

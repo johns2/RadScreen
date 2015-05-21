@@ -10,11 +10,11 @@ class DBConnection {
 
     const Hostname = "localhost";
 
-    const DB_NAME = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID = XE)))";
+    const DB_NAME = "radscreen";
 
-    const DB_USERNAME = "radscreen";
+    const DB_USERNAME = "root";
 
-    const DB_PASSWORD = 'Pa$$w0rd';
+    const DB_PASSWORD = '';
 
     private $db_kind;
 
