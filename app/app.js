@@ -1,6 +1,6 @@
 var app = angular.module('RadScreen', ['ui.bootstrap']);
 
-app.filter('startFrom', function () {
+/*app.filter('startFrom', function () {
     return function (input, start) {
         if (input) {
             start = +start; //parse to int
@@ -29,4 +29,9 @@ app.controller('patientsCtrl', function ($scope, $http, $timeout) {
         $scope.predicate = predicate;
         $scope.reverse = !$scope.reverse;
     };
+});*/
+
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get("controller/PatientController.php?construct=patients")
+        .success(function(response) {$scope.data = response.records;});
 });

@@ -9,20 +9,18 @@
 class PatientCase {
 
     private $ticketNumber;
-    private $caseName;
+    private $surgeryType;
     private $workStation;
-    private $name;
-    private $firstName;
-    private $birthDate;
+    private $surgeryStart;
+    private $surgeryRegistration;
+    private $waitingTime;
 
-    function __construct($ticketNumber, $caseName, $workStation, $name, $firstName, $birthDate)
+    function __construct($ticketNumber, $surgeryType, $workStation, $surgeryStart)
     {
         $this->ticketNumber = $ticketNumber;
-        $this->caseName = $caseName;
+        $this->surgeryType = $surgeryType;
         $this->workStation = $workStation;
-        $this->name = $name;
-        $this->firstName = $firstName;
-        $this->birthDate = $birthDate;
+        $this->surgeryStart = $surgeryStart;
     }
 
     public function getWorkStation()
@@ -34,7 +32,6 @@ class PatientCase {
     {
         $this->workStation = $workStation;
     }
-    private $surgeryStart;
 
     public function getSurgeryStart()
     {
@@ -46,14 +43,14 @@ class PatientCase {
         $this->surgeryStart = $surgeryStart;
     }
 
-    public function getCaseName()
+    public function getSurgeryType()
     {
-        return $this->caseName;
+        return $this->surgeryType;
     }
 
-    public function setCaseName($caseName)
+    public function setSurgeryType($surgeryType)
     {
-        $this->caseName = $caseName;
+        $this->$surgeryType = $surgeryType;
     }
 
     public function getTicketNumber(){
@@ -64,27 +61,23 @@ class PatientCase {
         $this->ticketNumber = $ticketNumber;
     }
 
-    public function getName(){
-        return $this->name;
+    public function getSurgeryRegistration()
+    {
+        return $this->surgeryRegistration;
     }
 
-    public function setName($name){
-       $this->name = $name;
+    public function setSurgeryRegistration($surgeryRegistration)
+    {
+        $this->surgeryRegistration = $surgeryRegistration;
     }
 
-    public function getFirstName(){
-        return $this->firstName;
+    public function getWaitingTime()
+    {
+        return $this->waitingTime;
     }
 
-    public function setFirstName($firstName){
-        $this->firstName = $firstName;
-    }
-
-    public function getBirthDate(){
-        return $this->birthDate;
-    }
-
-    public function setBirthDate($birthDate){
-        $this->birthDate = $birthDate;
+    public function setWaitingTime($waitingTime)
+    {
+        $this->waitingTime = $waitingTime;
     }
 }

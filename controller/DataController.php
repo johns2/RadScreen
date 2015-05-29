@@ -13,49 +13,65 @@ class DataController
 {
     private $surgeries = array();
 
-    function __construct(){
+    function __construct()
+    {
         $this->createSurgeries();
         $this->getJSONResponse();
     }
 
-    function createSurgeries(){
+    function createSurgeries()
+    {
         $database = new Database();
         $result = $database->getData();
-        while($row = $result->fetch()) {
+        while ($row = $result->fetch()) {
             $arr[] = $row;
         }
-        return $arr;
+        //return $arr;
 
-/*        foreach ($result as $row) {
-            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTERS_NAME'], $row['ARBEITSPLATZ'], $row['PAT_NAME'], $row['PAT_VORNAME'], $row['PAT_GEBURTSDATUM']);
+        foreach ($arr as $row) {
+            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTART_NAME'], $row['ARBEITSPLATZ'], $row['UNTERS_BEGINN']);
             $this->setSurgeries($surgery);
-        }*/
+        }
     }
 
-    function setSurgeries($surgery){
+    function setSurgeries($surgery)
+    {
         $this->surgeries[] = $surgery;
     }
 
-    function getSurgeries(){
+    function getSurgeries()
+    {
         return $this->surgeries;
-
     }
 
-    function getPatientCaseData(){
-        $patientCaseData = '[';
+    function getPatientCaseData()
+    {
+        $lastPatientCase = end($this->getSurgeries());
+        $patientCaseData = '{ "records":[ ';
         foreach ($this->getSurgeries() as $surgery){
-            $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '","0":"' . $surgery->getTicketNumber() . '"},';
+            if ($surgery == $lastPatientCase){
+                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}';
+            }
+            else{
+                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}, ';
+            }
+
         }
-        $patientCaseData .= ']';
-       // $patientCaseData = (array) $this->getSurgeries();
-        return $patientCaseData;
+        $patientCaseData .= ' ]} ';
+//        foreach ($this->getSurgeries() as $surgery) {
+//            $patientCase1 = array("TICKET_NUMBER" => $surgery->getTicketNumber(), "UNTART_NAME" => $surgery->getSurgeryType(), "ARBEITSPLATZ" => $surgery->getWorkstation(), "UNTERS_BEGINN" => $surgery->getSurgeryStart(), "ANMELDUNG_ANKUNFT" => $surgery->getSurgeryRegistration(), "WARTEZEIT" => $surgery->getWaitingTime());
+//        }
+        //$patientCaseData = (array) $this->getSurgeries();
+         return $patientCaseData;
+//        return $patientCase1;
     }
 
     function getJSONResponse()
     {
-        //$json_response = json_encode($this->utf8ize(print_r($this->getPatientCaseData())));
-        $json_response = json_encode($this->utf8ize($this->createSurgeries()));
-        echo $json_response;
+        //$json_response = json_encode($this->utf8ize(print_r($this->getSurgeries())));
+        $json_response = $this->utf8ize(($this->getPatientCaseData()));
+        // $json_response = json_encode($this->utf8ize(($arr)));
+        echo stripslashes($json_response);
     }
 
     function utf8ize($d)
