@@ -29,7 +29,7 @@ class DataController
         //return $arr;
 
         foreach ($arr as $row) {
-            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTART_NAME'], $row['ARBEITSPLATZ'], $row['UNTERS_BEGINN']);
+            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTART_NAME'], $row['ARBEITSPLATZ'], $row['TERMIN_DATUM'], $row['ANMELDUNG_ANKUNFT'], $row['UNTERS_BEGINN'], $row['WARTEZEIT']);
             $this->setSurgeries($surgery);
         }
     }
@@ -50,10 +50,10 @@ class DataController
         $patientCaseData = '{ "records":[ ';
         foreach ($this->getSurgeries() as $surgery){
             if ($surgery == $lastPatientCase){
-                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}';
+                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "TERMIN_DATUM":"' . $surgery->getSurgeryDate() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}';
             }
             else{
-                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}, ';
+                $patientCaseData .= '{"TICKET_NUMBER":"' . $surgery->getTicketNumber() . '", "UNTART_NAME":"' . $surgery->getSurgeryType() . '", "ARBEITSPLATZ":"' . $surgery->getWorkstation() . '", "TERMIN_DATUM":"' . $surgery->getSurgeryDate() . '", "UNTERS_BEGINN":"' . $surgery->getSurgeryStart() . '", "ANMELDUNG_ANKUNFT":"' . $surgery->getSurgeryRegistration() . '", "WARTEZEIT":"' . $surgery->getWaitingTime() .'"}, ';
             }
 
         }

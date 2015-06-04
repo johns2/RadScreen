@@ -11,16 +11,20 @@ class PatientCase {
     private $ticketNumber;
     private $surgeryType;
     private $workStation;
+    private $surgeryDate;
     private $surgeryStart;
     private $surgeryRegistration;
     private $waitingTime;
 
-    function __construct($ticketNumber, $surgeryType, $workStation, $surgeryStart)
+    function __construct($ticketNumber, $surgeryType, $workStation, $surgeryDate, $surgeryStart, $surgeryRegistration, $waitingTime)
     {
         $this->ticketNumber = $ticketNumber;
         $this->surgeryType = $surgeryType;
         $this->workStation = $workStation;
+        $this->surgeryDate = $surgeryDate;
         $this->surgeryStart = $surgeryStart;
+        $this->surgeryRegistration = $surgeryRegistration;
+        $this->waitingTime = $waitingTime;
     }
 
     public function getWorkStation()
@@ -31,6 +35,16 @@ class PatientCase {
     public function setWorkStation($workStation)
     {
         $this->workStation = $workStation;
+    }
+
+    public function getSurgeryDate()
+    {
+        return $this->surgeryDate;
+    }
+
+    public function setSurgeryDate($surgeryDate)
+    {
+        $this->$surgeryDate = $surgeryDate;
     }
 
     public function getSurgeryStart()

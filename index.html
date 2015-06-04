@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="RadScreen" lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-        ul>li, a{cursor: pointer;}
-    </style>
-  <title>RadScreen v0.2</title>
- </head>
-<body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+    <link href="css/app.css" rel="stylesheet">
+    <title>RadScreen v0.3</title>
+</head>
+<body ng-app="AllModules">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
 <!--  <div ng-controller="patientsCtrl">
       <div class="container">
@@ -32,7 +31,7 @@
           <h5>Filtered {{ filtered.length }} of {{ totalItems}} total customers</h5>
       </div>
   </div>
-          <h2>Die nächsten Patienten</h2>
+          <h1>Die nächsten Patienten</h1>
   <br/>
   <div class="row">
       <div class="col-md-12" ng-show="filteredItems > 0">
@@ -70,34 +69,80 @@
   </div>
       </div>
   </div>-->
-  <div ng-app="myApp" ng-controller="customersCtrl">
-      <table class="table table-striped table-bordered">
-          <thead>
-          <th>Ticketnr.</th>
-          <th>Untersuchung</th>
-          <th>Gerät</th>
-          <th>Termin</th>
-          <th>Ankunft</th>
-          <th>Wartezeit</th>
-          </thead>
-          <tbody>
-          <tr ng-repeat="case in data">
-              <td>{{case.TICKET_NUMBER}}</td>
-              <td>{{case.UNTART_NAME}}</td>
-              <td>{{case.ARBEITSPLATZ}}</td>
-              <td>{{case.UNTERS_BEGINN}}</td>
-              <td>{{case.ANMELDUNG_ANKUNFT}}</td>
-              <td>{{case.WARTEZEIT}}</td>
-          </tr>
-          </tbody>
-      </table>
+<div class="header"><img class="logoLeft" src="./gfx/unibas_logo_2015.png"/><img class="logoRight"
+                                                                                 src="./gfx/logo.gif"></div>
+<div class="fullWidth">
+    <div ng-controller="PatientsCtrl">
+        <span class="red"><h1>Die nächsten Patienten</h1></span>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <th>Ticketnr.</th>
+            <th>Untersuchung</th>
+            <th>Gerät</th>
+            <th>Termin</th>
+            <th>Untersuchungsbeginn</th>
+            <th>Ankunft</th>
+            <th>Wartezeit</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="case in data" >
+                <td>{{case.TICKET_NUMBER}}</td>
+                <td>{{case.UNTART_NAME}}</td>
+                <td>{{case.ARBEITSPLATZ}}</td>
+                <td>{{case.TERMIN_DATUM}}</td>
+                <td>{{case.UNTERS_BEGINN}}</td>
+                <td>{{case.ANMELDUNG_ANKUNFT}}</td>
+                <td>{{case.WARTEZEIT}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fullWidth">
+    <div class="rowLeft">
+        <span class="red"><h1>Newsticker</h1></span>
+        <div ng-include="'./modules/newsticker.html'"></div>
+    </div>
+    <div class="rowCenter">
+        <span class="red"><h1>Wetter</h1></span>
 
-  </div>
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="js/angular.js"></script>
-  <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
-  <script src="app/app.js"></script>
+        <div>
+            <!-- wetter.com button 170x200-->
+            <div id="wettercom-button-ad0715ecf344b020f5f69a543be7e9da">
+                <link id="wettercom-css"
+                      href="http://www.wetter.com/css/woys3c.css?107638,ad0715ecf344b020f5f69a543be7e9da"
+                      rel="stylesheet" type="text/css"/>
+                <div id="wettercom-woys-ad0715ecf344b020f5f69a543be7e9da"></div>
+                <div id="cityTitle">
+                    <a href="http://www.wetter.com/wetter_aktuell/wettervorhersage/3_tagesvorhersage/?id=CH0CH0260"
+                       target="_blank">Wetter Basel</a>
+                </div>
+                <div id="logo">
+                    <a href="http://www.wetter.com" target="_blank"><img id="wettercom-logo"
+                                                                         src="http://www.wetter.com/img/websitetools/woys/logo.png"
+                                                                         alt="wetter.com" title="wetter.com"/></a>
+                </div>
+                <script type="text/javascript"
+                        src="http://www.wetter.com/js/woys3c.js?107638,ad0715ecf344b020f5f69a543be7e9da"></script>
+            </div>
+            <!-- wetter.com button 170x200-->
+        </div>
+    </div>
+    <div class="fullWidth">
+        <div class="rowCenter">
+            <div ng-include="'./modules/webcam.html'"></div>
+        </div>
+    <div class="rowRight">
+        <span class="red"><h1>&nbsp;</h1></span>
+    </div>
+</div>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="js/angular.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
+<script src="app/app.js"></script>
 </body>
 </html>
