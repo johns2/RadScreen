@@ -12,10 +12,13 @@ include("./Database.php");
 class DataController
 {
     private $surgeries = array();
+    private $umri1;
+    private $umct1;
 
     function __construct()
     {
         $this->createSurgeries();
+        $this->createWartezeit();
         $this->getJSONResponse();
     }
 
@@ -84,6 +87,12 @@ class DataController
             return utf8_encode($d);
         }
         return $d;
+    }
+
+    function createWartezeit(){
+        $database = new Database();
+        $this->umri1 = $database->getWartezeit('UMRI1');
+        $this->umct1 = $database->getWartezeit('UMCT1');
     }
 }
 

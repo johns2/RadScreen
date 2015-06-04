@@ -75,6 +75,12 @@ WHERE
         return $result;
     }
 
+    public function getWartezeit($device){
+        $sql = "SELECT ROUND(((UNTERS_BEGINN - TERMIN_DATUM)*24*60),0) AS WARTEZEIT FROM A_UNTBEH_UEB_ALLE WHERE UNTERS_STATUS = 'u' AND ARBEITSPLATZ = .$device ";
+        $result = $this->connection->execute_statement($sql);
+        return $result;
+    }
+
 /*    public function checkStatus()
     {
 
