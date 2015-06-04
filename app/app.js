@@ -1,39 +1,22 @@
 var mainModule = angular.module('MainModule', ['ui.bootstrap'])
 
-/*app.filter('startFrom', function () {
-    return function (input, start) {
-        if (input) {
-            start = +start; //parse to int
-            return input.slice(start);
-        }
-        return [];
-    }
+mainModule.controller('DeviceCtrl', function($scope, $http, $interval) {
+    $scope.refreshList = function () {
+        $http.get("controller/OutputController.php?construct=devices")
+            .success(function (response) {
+                $scope.data = response.records;
+            });
+    };
+
+    $scope.refreshList(); //initial load
+    $interval(function(){
+        $scope.refreshList();
+    }, 10000);
 });
-app.controller('patientsCtrl', function ($scope, $http, $timeout) {
-    $http.get('controller/PatientController.php?construct=patients').success(function (data) {
-        $scope.list = data;
-        $scope.currentPage = 1;
-        $scope.entryLimit = 5;
-        $scope.filteredItems = $scope.list.length;
-        $scope.totalItems = $scope.list.length;
-    });
-    $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-    };
-    $scope.filter = function () {
-        $timeout(function () {
-            $scope.filteredItems = $scope.filtered.length;
-        }, 10);
-    };
-    $scope.sort_by = function (predicate) {
-        $scope.predicate = predicate;
-        $scope.reverse = !$scope.reverse;
-    };
-});*/
 
 mainModule.controller('PatientsCtrl', function($scope, $http, $interval) {
     $scope.refreshList = function () {
-        $http.get("controller/PatientController.php?construct=patients")
+        $http.get("controller/OutputController.php?construct=patients")
             .success(function (response) {
                 $scope.data = response.records;
             });

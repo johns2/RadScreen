@@ -8,8 +8,5 @@
 include ("./DataController.php");
 
 $construct = $_GET['construct'];
-
-if ($construct === 'patients'){
-    $data = new DataController();
-}
+    $data = new DataController($construct);
 ?>

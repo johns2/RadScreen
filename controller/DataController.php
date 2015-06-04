@@ -15,11 +15,16 @@ class DataController
     private $umri1;
     private $umct1;
 
-    function __construct()
+    function __construct($construct)
     {
-        $this->createSurgeries();
-        $this->createWartezeit();
-        $this->getJSONResponse();
+        if ($construct === 'patients') {
+            $this->createSurgeries();
+            $this->getJSONResponse(($this->getPatientCaseData()));
+        }
+        if ($construct === 'devices'){
+            $this->createWartezeit();
+            $this->getJSONResponse($this->getWartezeitData());
+        }
     }
 
     function createSurgeries()
@@ -61,19 +66,18 @@ class DataController
 
         }
         $patientCaseData .= ' ]} ';
-//        foreach ($this->getSurgeries() as $surgery) {
-//            $patientCase1 = array("TICKET_NUMBER" => $surgery->getTicketNumber(), "UNTART_NAME" => $surgery->getSurgeryType(), "ARBEITSPLATZ" => $surgery->getWorkstation(), "UNTERS_BEGINN" => $surgery->getSurgeryStart(), "ANMELDUNG_ANKUNFT" => $surgery->getSurgeryRegistration(), "WARTEZEIT" => $surgery->getWaitingTime());
-//        }
-        //$patientCaseData = (array) $this->getSurgeries();
          return $patientCaseData;
-//        return $patientCase1;
     }
 
-    function getJSONResponse()
+    function getWartezeitData()
     {
-        //$json_response = json_encode($this->utf8ize(print_r($this->getSurgeries())));
-        $json_response = $this->utf8ize(($this->getPatientCaseData()));
-        // $json_response = json_encode($this->utf8ize(($arr)));
+        $wartezeitData = '{ "records":[ {"UMRI1":"' . $this->umri1 . '", "UMCT1":"' . $this->umct1 .'"} ]} ';
+        return $wartezeitData;
+    }
+
+    function getJSONResponse($dataForm)
+    {
+        $json_response = $this->utf8ize($dataForm);
         echo stripslashes($json_response);
     }
 
@@ -92,8 +96,8 @@ class DataController
     function createWartezeit(){
         $database = new Database();
         $this->umri1 = $database->getWartezeit('UMRI1');
+        echo $this->umri1;
         $this->umct1 = $database->getWartezeit('UMCT1');
     }
 }
-
 ?>
