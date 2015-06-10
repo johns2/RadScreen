@@ -38,7 +38,7 @@ SELECT
   TO_CHAR(B.ANMELDUNG_ANKUNFT,'DD.MM.YYYY HH24:MI') AS ANMELDUNG_ANKUNFT,
 
 (CASE WHEN UNTERS_STATUS = 'b'
-THEN ' Laufende Untersuchung'
+THEN 'Laufende Untersuchung'
  ELSE (
  CASE WHEN (
  termin_datum - systimestamp + (SELECT NUMTODSINTERVAL(NVL(SUM(ROUND(((UNTERS_BEGINN - TERMIN_DATUM)*24*60),0)), 0), 'MINUTE')
@@ -72,8 +72,8 @@ WHERE
 --Suchfilter--
   AND (B.UNTERS_STATUS = 'a'
   OR B.UNTERS_STATUS = 'b')
-  --AND ( B.TERMIN_DATUM between systimestamp-INTERVAL '4' HOUR and systimestamp+INTERVAL '4' HOUR)
-  ORDER BY WARTEZEIT ASC
+  AND ( B.TERMIN_DATUM between systimestamp-INTERVAL '4' HOUR and systimestamp+INTERVAL '4' HOUR)
+  ORDER BY REPLACE(WARTEZEIT,'Laufende Untersuchung','-99999')*1
         ";
         $result = $this->connection->execute_statement($sql);
         return $result;

@@ -15,23 +15,19 @@ mainModule.controller('PatientsCtrl', function($scope, $http, $interval) {
 
 });
 
-var clockModule = angular.module('ClockModule', ['ngResource'])
+var characterFilter = angular.module('CharFilter', []);
 
-clockModule.controller('ClockCtrl', function($scope) {
-    $scope.showClock = function () {
-        $scope.clock = {
-            clock : "gasd"
-        }
-        $scope.updateClock = function () {
-            $scope.clock.now = new Date();
-        };
+characterFilter.filter('removeMinusChars', function () {
+    return function (text) {
+        var str = text.replace(/\-/g, '');
+        return str.toLowerCase();
+    };
+})
 
-        setInterval(function () {
-            $scope.$apply($scope.updateClock());
-        }, 1000);
+var clockModule = angular.module('ClockModule', ['ds.clock'])
 
-        $scope.updateClock();
-}
+clockModule.controller("ClockCtrl", function ($scope) {
+
 });
 
 
@@ -85,4 +81,4 @@ refreshControl.controller('RefreshControl',function($scope,$interval){
         },1000);
     });
 
-angular.module("AllModules", ["MainModule", "FeedModule", "ClockModule"]);
+angular.module("AllModules", ["MainModule", "FeedModule", "ClockModule", "CharFilter"]);
