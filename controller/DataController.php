@@ -8,12 +8,13 @@
 
 include("../datamodell/PatientCase.php");
 include("./Database.php");
+error_reporting(-1);
 
 class DataController
 {
     private $surgeries = array();
     private $umri1;
-    private $umct1;
+    private $uct1;
 
     function __construct($construct)
     {
@@ -30,14 +31,13 @@ class DataController
     function createSurgeries()
     {
         $database = new Database();
-        $result = $database->getData();
+        $result = $database->getListData();
         while ($row = $result->fetch()) {
             $arr[] = $row;
         }
-        //return $arr;
 
         foreach ($arr as $row) {
-            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTART_NAME'], $row['ARBEITSPLATZ'], $row['TERMIN_DATUM'], $row['ANMELDUNG_ANKUNFT'], $row['UNTERS_BEGINN'], $row['WARTEZEIT']);
+            $surgery = new PatientCase($row['TICKET_NUMBER'], $row['UNTART_NAME'], $row['ARBEITSPLATZ'], $row['TERMIN_DATUM'], $row['UNTERS_BEGINN'], $row['ANMELDUNG_ANKUNFT'], $row['WARTEZEIT']);
             $this->setSurgeries($surgery);
         }
     }
@@ -54,7 +54,8 @@ class DataController
 
     function getPatientCaseData()
     {
-        $lastPatientCase = end($this->getSurgeries());
+        $surgeries = $this->getSurgeries();
+        $lastPatientCase = end($surgeries);
         $patientCaseData = '{ "records":[ ';
         foreach ($this->getSurgeries() as $surgery){
             if ($surgery == $lastPatientCase){
@@ -71,7 +72,10 @@ class DataController
 
     function getWartezeitData()
     {
-        $wartezeitData = '{ "records":[ {"UMRI1":"' . $this->umri1 . '", "UMCT1":"' . $this->umct1 .'"} ]} ';
+        $umri1 = $this->umri1->fetch();
+        $uct1 = $this->uct1->fetch();
+
+        $wartezeitData = '{ "records":[ {"UMRI1":"' . $umri1[0] . '", "UCT1":"' . $uct1[0] .'"} ]} ';
         return $wartezeitData;
     }
 
@@ -96,8 +100,7 @@ class DataController
     function createWartezeit(){
         $database = new Database();
         $this->umri1 = $database->getWartezeit('UMRI1');
-        echo $this->umri1;
-        $this->umct1 = $database->getWartezeit('UMCT1');
+        $this->uct1 = $database->getWartezeit('UCT1');
     }
 }
 ?>

@@ -8,5 +8,6 @@
 
 interface DataSource {
 
-    function getData();
+    function getListData();
+    function getWartezeit($device);
 }

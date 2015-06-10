@@ -1,19 +1,5 @@
 var mainModule = angular.module('MainModule', ['ui.bootstrap'])
 
-mainModule.controller('DeviceCtrl', function($scope, $http, $interval) {
-    $scope.refreshList = function () {
-        $http.get("controller/OutputController.php?construct=devices")
-            .success(function (response) {
-                $scope.data = response.records;
-            });
-    };
-
-    $scope.refreshList(); //initial load
-    $interval(function(){
-        $scope.refreshList();
-    }, 10000);
-});
-
 mainModule.controller('PatientsCtrl', function($scope, $http, $interval) {
     $scope.refreshList = function () {
         $http.get("controller/OutputController.php?construct=patients")
@@ -26,7 +12,28 @@ mainModule.controller('PatientsCtrl', function($scope, $http, $interval) {
     $interval(function(){
         $scope.refreshList();
     }, 10000);
+
 });
+
+var clockModule = angular.module('ClockModule', ['ngResource'])
+
+clockModule.controller('ClockCtrl', function($scope) {
+    $scope.showClock = function () {
+        $scope.clock = {
+            clock : "gasd"
+        }
+        $scope.updateClock = function () {
+            $scope.clock.now = new Date();
+        };
+
+        setInterval(function () {
+            $scope.$apply($scope.updateClock());
+        }, 1000);
+
+        $scope.updateClock();
+}
+});
+
 
 var feeds = [];
 var feedModule = angular.module('FeedModule', ['ngResource'])
@@ -78,4 +85,4 @@ refreshControl.controller('RefreshControl',function($scope,$interval){
         },1000);
     });
 
-angular.module("AllModules", ["MainModule", "FeedModule"]);
+angular.module("AllModules", ["MainModule", "FeedModule", "ClockModule"]);
