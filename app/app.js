@@ -11,7 +11,7 @@ mainModule.controller('PatientsCtrl', function($scope, $http, $interval) {
     $scope.refreshList(); //initial load
     $interval(function(){
         $scope.refreshList();
-    }, 10000);
+    }, 1000);
 
 });
 
@@ -46,7 +46,7 @@ feedModule.factory('FeedLoader', function ($resource) {
             ];
             if (feeds.length === 0) {
                 for (var i=0; i<feedSources.length; i++) {
-                    FeedLoader.fetch({q: feedSources[i].url, num: 10}, {}, function (data) {
+                    FeedLoader.fetch({q: feedSources[i].url, num: 5}, {}, function (data) {
                         var feed = data.responseData.feed;
                         feeds.push(feed);
                     });

@@ -27,7 +27,7 @@
 <div class="fullWidth">
     <span class="red"></span>
     <div class="rowLeft">
-        <h1><span>Newsticker</span></h1>
+        <h1><span>Newsticker Basler Zeitung (www.bazonline.ch)</span></h1>
         <div class="newsticker" ng-include="'./modules/newsticker.html'"></div>
     </div>
     <div class="rowCenter">
@@ -60,7 +60,7 @@
     <span class="red"></span>
     <div ng-controller="PatientsCtrl">
         <h1><span>Die nächsten Patienten</span></h1>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="waitingTimeTable">
             <thead>
             <tr>
                 <th>Ticketnr.</th>
@@ -71,10 +71,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="case in data">
-                <td ng-style="case.WARTEZEIT-0<-10 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.TICKET_NUMBER}}</td>
-                <td ng-style="case.WARTEZEIT-0<-10 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.ARBEITSPLATZ}}</td>
-                <td ng-style="case.WARTEZEIT-0<-10 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.TERMIN_DATUM}}</td>
-                <td ng-style="case.WARTEZEIT-0<-10 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">
+                <td ng-style="case.WARTEZEIT-0<-15 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.TICKET_NUMBER}}</td>
+                <td ng-style="case.WARTEZEIT-0<-15 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.ARBEITSPLATZ}}</td>
+                <td ng-style="case.WARTEZEIT-0<-15 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">{{case.TERMIN_DATUM}}</td>
+                <td ng-style="case.WARTEZEIT-0<-15 && {'background-color': 'red'} || case.WARTEZEIT-0<-5 && {'background-color': 'orange'}|| case.WARTEZEIT-0<1 && {'background-color': 'green'} || case.WARTEZEIT-0>1 && {'background-color': 'none'}">
                     <span ng-if="case.WARTEZEIT-0 < 0">F&auml;llig seit {{case.WARTEZEIT | removeMinusChars}} Minute(n)</span>
                     <span ng-if="case.WARTEZEIT-0 > -1">Behandlung in ca. {{case.WARTEZEIT}} Minute(n)</span>
                     <span ng-if="case.WARTEZEIT == 'Laufende Untersuchung'">{{case.WARTEZEIT}}</span>

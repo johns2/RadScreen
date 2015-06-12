@@ -2,7 +2,7 @@ body {
     text-align: left;
     background-color: #eeeeee;
     font-family: verdana,sans-serif;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 /* app css stylesheet */
@@ -42,13 +42,11 @@ ul>li, a {
 
 .header {
     padding: 20px;
-    height: 115px;
+    height: 90px;
 }
 
-.waitingTimeTable {
-    margin-left:auto;
-    margin-right:auto;
-    width: 30%;
+#waitingTimeTable {
+    text-align: left;
     border: 1px;
 }
 
@@ -57,12 +55,14 @@ ul>li, a {
     margin: 0px auto;
     float: left;
     white-space: nowrap;
+    clear: both;
 }
 
 .rowLeft {
     float: left;
-    min-width: 200px;
-    display: inline-block;
+    max-width: 700px;
+    min-height: 100px;
+    overflow: hidden;
 }
 
 .rowCenter {
@@ -70,7 +70,7 @@ ul>li, a {
     left: 50%;
     margin-left: -100px;
     display: inline-block;
- }
+}
 
 .rowRight {
     float: right;
@@ -87,8 +87,7 @@ ul>li, a {
 }
 
 .clockCenter {
-    font-size: 20px;
-
+    font-size: 18px;
 }
 
 .logoRight{
@@ -97,6 +96,7 @@ ul>li, a {
 
 h1 {
     font-size: 18px;
+    text-align: left;
     color: #ffffff;
     text-transform: uppercase;
     font-weight: bold;
@@ -121,10 +121,10 @@ thead {
     z-index: -1;
 }
 
-.orangeRow {
-    background-color: #d58512;
+.newsTitle {
+    font-weight: bold;
 }
 
-.redRow {
-    background-color: #d30038;;
+.newsContent {
+    font-style: italic;
 }
